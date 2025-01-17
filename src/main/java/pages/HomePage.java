@@ -22,7 +22,15 @@ public class HomePage {
     @FindBy(xpath = "//*[@class='page-header']//a[contains(text(), 'Create an Account')]")
     WebElement createAnAccountBtn;
 
+    @FindBy(xpath = "//*[@class='page-header']//a[contains(text(), 'Sign In')]")
+    WebElement signInBtn;
+
     public void clickCreateAnAccountButton() {
-        wait.until(ExpectedConditions.visibilityOf(createAnAccountBtn)).click();
+        wait.until(ExpectedConditions.visibilityOf(createAnAccountBtn));
+        wait.until(ExpectedConditions.elementToBeClickable(createAnAccountBtn)).click();
+    }
+    public void clickOnSignInButton() {
+        wait.until(ExpectedConditions.visibilityOf(signInBtn));
+        wait.until(ExpectedConditions.elementToBeClickable(signInBtn)).click();
     }
 }

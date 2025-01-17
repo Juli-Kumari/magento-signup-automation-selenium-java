@@ -40,6 +40,12 @@ public class CreateNewCustomerAccountPage {
     @FindBy(css = "div[role='alert']")
     WebElement successMessage;
 
+    @FindBy(id = "email_address-error")
+    WebElement emailError;
+
+    @FindBy (id = "password-confirmation-error")
+    WebElement passwordConfirmationError;
+
     public void enterFirstName(String fiName){
         wait.until(ExpectedConditions.visibilityOf(firstName)).sendKeys(fiName);
     }
@@ -68,7 +74,17 @@ public class CreateNewCustomerAccountPage {
 
     public String successMessage(){
         String successMsg= wait.until(ExpectedConditions.visibilityOf(successMessage)).getText();
-
         return successMsg;
     }
+
+    public String emailErrorMessaage(){
+        String errorMsg= wait.until(ExpectedConditions.visibilityOf(emailError)).getText();
+        return errorMsg;
+    }
+
+    public String passwordConfirmationErrorMessaage(){
+        String errorMsg= wait.until(ExpectedConditions.visibilityOf(passwordConfirmationError)).getText();
+        return errorMsg;
+    }
+
 }

@@ -36,25 +36,25 @@ Feature: Create an Account and Login Tests
     And the user enters "<Password>" as Password
     And the user confirms the password with "<ConfirmPassword>"
     And the user submits the form using Create an Account button
-    Then the user should see an <error message> as error message for mismatched passwords
+    Then the user should see an "<error message>" as error message for mismatched passwords
 
     Examples:
       | FirstName | LastName | Email               | Password     | ConfirmPassword | error message |
       | Juli      | Kumari      | juli@example.com     | Test@1234    | test@1234       | Please enter the same value again.           |
 
   Scenario Outline: User Sign-in with Valid Credentials
-    When the user enters "<Email>" as Email
-    And the user enters "<Password>" as Password
+    When the user enters "<Email>" as Email in customer login page
+    And the user enters "<Password>" as Password in customer login page
     And the user click on Signin Button
-    Then the user should successfully navigate to the user dashboard
+    Then the user should successfully navigate to the user dashboard as "<username>"
 
     Examples:
-      | Email               | Password     |
-      | juli@gmail.com     | Test@1234    |
+      | Email               | Password     | username|
+      | juli@gmail.com     | Test@1234    |Juli Kumari|
 
   Scenario Outline: User Sign-in with Incorrect Password
-    When the user enters "<Email>" as Email
-    And the user enters "<Password>" as Password
+    When the user enters "<Email>" as Email in customer login page
+    And the user enters "<Password>" as Password in customer login page
     And the user click on Signin Button
     Then the user should see an "<error message>" as error message for incorrect password
 

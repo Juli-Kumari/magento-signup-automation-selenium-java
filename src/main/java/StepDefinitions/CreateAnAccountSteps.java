@@ -9,7 +9,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.chrome.ChromeOptions;
 import pages.CreateNewCustomerAccountPage;
+import pages.CustomerLoginPage;
 import pages.HomePage;
+import pages.UserDashboardPage;
 
 
 import java.io.IOException;
@@ -19,6 +21,9 @@ public class CreateAnAccountSteps {
     WebDriver driver;
     HomePage homePage;
     CreateNewCustomerAccountPage customerAccountPage;
+    CustomerLoginPage loginPage;
+    UserDashboardPage dashboardPage;
+
     @Before
     public void setUp() throws IOException, InterruptedException {
         WebDriverManager.chromedriver().setup();
@@ -26,6 +31,8 @@ public class CreateAnAccountSteps {
         driver = new ChromeDriver(options);
         homePage = new HomePage(driver);
         customerAccountPage = new CreateNewCustomerAccountPage(driver);
+        loginPage = new CustomerLoginPage(driver);
+        dashboardPage = new UserDashboardPage(driver);
 
         driver.manage().window().maximize();
         driver.get("https://magento.softwaretestingboard.com/");
@@ -67,28 +74,38 @@ public class CreateAnAccountSteps {
     }
 
     @Then("the user should see an {string} as error message for invalid email")
-    public void the_user_should_see_an_as_error_message_for_invalid_email(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void the_user_should_see_an_as_error_message_for_invalid_email(String expectedErrorMessage) {
+        String actualErrorMessage = customerAccountPage.emailErrorMessaage();
+        Assert.assertEquals(expectedErrorMessage, actualErrorMessage);
     }
 
-    @Then("the user should see an Please enter the same value again. as error message for mismatched passwords")
-    public void the_user_should_see_an_please_enter_the_same_value_again_as_error_message_for_mismatched_passwords() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    @Then("the user should see an {string} as error message for mismatched passwords")
+    public void the_user_should_see_an_please_enter_the_same_value_again_as_error_message_for_mismatched_passwords(String mismatchedPasswordMsg) {
+        String actualErrorMessage = customerAccountPage.passwordConfirmationErrorMessaage();
+        Assert.assertEquals(mismatchedPasswordMsg, actualErrorMessage);
+    }
+
+    @When("the user enters {string} as Email in customer login page")
+    public void the_user_enters_as_email_in_customer_login_page(String email) {
+        homePage.clickOnSignInButton();
+        loginPage.enterEmail(email);
+
+    }
+    @When("the user enters {string} as Password in customer login page")
+    public void the_user_enters_as_password_in_customer_login_page(String password) {
+        loginPage.enterPassword(password);
     }
 
     @When("the user click on Signin Button")
     public void the_user_click_on_signin_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        loginPage.clickOnSignInButton();
+    }
+    @Then("the user should successfully navigate to the user dashboard as {string}")
+    public void the_user_should_successfully_navigate_to_the_user_dashboard(String expectedUserName) {
+        String actualName = dashboardPage.getUserName();
+        Assert.assertTrue(actualName.contains(expectedUserName));
     }
 
-    @Then("the user should successfully navigate to the user dashboard")
-    public void the_user_should_successfully_navigate_to_the_user_dashboard() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
-    }
 
     @Then("the user should see an {string} as error message for incorrect password")
     public void the_user_should_see_an_as_error_message_for_incorrect_password(String string) {
