@@ -3,6 +3,7 @@ Feature: Create an Account and Login Tests
   Background:
     Given the user is on the Magento sign-up page
 
+    @CreateNewAccount
   Scenario Outline: User Registration with Valid Details
     When the user enters "<FirstName>" as First Name
     And the user enters "<LastName>" as Last Name
@@ -14,8 +15,9 @@ Feature: Create an Account and Login Tests
 
     Examples:
       | FirstName | LastName | Email               | Password     | ConfirmPassword | success message|
-      | Juli      | Kumari      | juli@gmail.com     | Test@1234    | Test@1234       | Thank you for registering with Main Website Store.|
+      | Juli33      | Kumari      | juli323@gmail.com     | Test@1234    | Test@1234       | Thank you for registering with Main Website Store.|
 
+      @RegisterWithInvalidEmail
   Scenario Outline: User Registration with Invalid Email
     When the user enters "<FirstName>" as First Name
     And the user enters "<LastName>" as Last Name
@@ -29,6 +31,7 @@ Feature: Create an Account and Login Tests
       | FirstName | LastName | Email       | Password     | ConfirmPassword | error message|
       | Juli      | Kumari      | juli.com    | Test@1234    | Test@1234       |Please enter a valid email address (Ex: johndoe@domain.com).               |
 
+  @RegisterWithInvalidPassword
   Scenario Outline: User Registration with Mismatched Passwords
     When the user enters "<FirstName>" as First Name
     And the user enters "<LastName>" as Last Name
@@ -42,6 +45,7 @@ Feature: Create an Account and Login Tests
       | FirstName | LastName | Email               | Password     | ConfirmPassword | error message |
       | Juli      | Kumari      | juli@example.com     | Test@1234    | test@1234       | Please enter the same value again.           |
 
+    @SignInWithValidCredential
   Scenario Outline: User Sign-in with Valid Credentials
     When the user enters "<Email>" as Email in customer login page
     And the user enters "<Password>" as Password in customer login page
@@ -52,6 +56,7 @@ Feature: Create an Account and Login Tests
       | Email               | Password     | username|
       | juli@gmail.com     | Test@1234    |Juli Kumari|
 
+  @SignInWithInValidCredential
   Scenario Outline: User Sign-in with Incorrect Password
     When the user enters "<Email>" as Email in customer login page
     And the user enters "<Password>" as Password in customer login page

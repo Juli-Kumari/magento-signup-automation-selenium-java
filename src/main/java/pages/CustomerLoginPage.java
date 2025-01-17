@@ -29,6 +29,9 @@ public class CustomerLoginPage {
     @FindBy(css = ".primary#send2")
     WebElement signInButton;
 
+    @FindBy(css = "[role='alert']")
+    WebElement errorMessage;
+
     public void enterEmail(String email){
         wait.until(ExpectedConditions.visibilityOf(enterEmail)).sendKeys(email);
     }
@@ -42,5 +45,9 @@ public class CustomerLoginPage {
         wait.until(ExpectedConditions.elementToBeClickable(signInButton)).click();
     }
 
+    public String getErrorMessage(){
+        String errorMsg = wait.until(ExpectedConditions.visibilityOf(errorMessage)).getText();
+        return errorMsg;
+    }
 
 }

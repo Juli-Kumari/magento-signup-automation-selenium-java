@@ -35,16 +35,17 @@ public class CreateAnAccountSteps {
         dashboardPage = new UserDashboardPage(driver);
 
         driver.manage().window().maximize();
-        driver.get("https://magento.softwaretestingboard.com/");
+
     }
 
     @Given("the user is on the Magento sign-up page")
     public void the_user_is_on_the_magento_sign_up_page() {
-        homePage.clickCreateAnAccountButton();
+        driver.get("https://magento.softwaretestingboard.com/");
     }
 
     @When("the user enters {string} as First Name")
     public void the_user_enters_as_first_name(String firstName) {
+        homePage.clickCreateAnAccountButton();
         customerAccountPage.enterFirstName(firstName);
     }
     @When("the user enters {string} as Last Name")
@@ -100,17 +101,18 @@ public class CreateAnAccountSteps {
     public void the_user_click_on_signin_button() {
         loginPage.clickOnSignInButton();
     }
+
     @Then("the user should successfully navigate to the user dashboard as {string}")
     public void the_user_should_successfully_navigate_to_the_user_dashboard(String expectedUserName) {
+        dashboardPage.displayedHomePage();
         String actualName = dashboardPage.getUserName();
         Assert.assertTrue(actualName.contains(expectedUserName));
     }
 
-
     @Then("the user should see an {string} as error message for incorrect password")
-    public void the_user_should_see_an_as_error_message_for_incorrect_password(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+    public void the_user_should_see_an_as_error_message_for_incorrect_password(String errorMessage) {
+       String actualMsg = loginPage.getErrorMessage();
+       Assert.assertEquals(actualMsg, errorMessage);
     }
 
     @After

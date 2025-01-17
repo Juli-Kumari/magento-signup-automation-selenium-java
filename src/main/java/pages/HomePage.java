@@ -25,12 +25,16 @@ public class HomePage {
     @FindBy(xpath = "//*[@class='page-header']//a[contains(text(), 'Sign In')]")
     WebElement signInBtn;
 
-    public void clickCreateAnAccountButton() {
-        wait.until(ExpectedConditions.visibilityOf(createAnAccountBtn));
-        wait.until(ExpectedConditions.elementToBeClickable(createAnAccountBtn)).click();
+    public void clickButton(WebElement button) {
+        wait.until(ExpectedConditions.visibilityOf(button));
+        wait.until(ExpectedConditions.elementToBeClickable(button)).click();
     }
+
+    public void clickCreateAnAccountButton() {
+        clickButton(createAnAccountBtn);
+    }
+
     public void clickOnSignInButton() {
-        wait.until(ExpectedConditions.visibilityOf(signInBtn));
-        wait.until(ExpectedConditions.elementToBeClickable(signInBtn)).click();
+        clickButton(signInBtn);
     }
 }

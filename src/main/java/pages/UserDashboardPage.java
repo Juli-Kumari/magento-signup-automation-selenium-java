@@ -31,9 +31,8 @@ public class UserDashboardPage {
         return name;
     }
 
-    public String displayedHomePage(){
-        String text = wait.until(ExpectedConditions.visibilityOf(homePageText)).getText();
-        return text;
+    public void displayedHomePage(){
+        wait.until(ExpectedConditions.visibilityOf(homePageText)).isDisplayed();
     }
 
 
